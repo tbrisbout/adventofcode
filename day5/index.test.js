@@ -21,7 +21,7 @@ testCases.forEach(([input, expected]) =>
 
 test('Part 1: it should return the highest id', t => {
   // GIVEN
-  const input = testCases.map(head).join('\n')
+  const input = testCases.map(head)
   const expected = 820
 
   // WHEN
@@ -31,10 +31,17 @@ test('Part 1: it should return the highest id', t => {
   t.is(actual, expected)
 })
 
-test.skip('Part 2: should ...', t => {
+test('Part 2: should ...', t => {
   // GIVEN
-  const input = ''
-  const expected = ''
+  const input = [
+    'FFFFFFFLLL',
+    'FFFFFFFLLR',
+    'FFFFFFFLRL',
+    'FFFFFFFLRR',
+    'FFFFFFFRLR'
+  ]
+
+  const expected = 4
 
   // WHEN
   const actual = solvePart2(input)

@@ -1,13 +1,14 @@
-const { head, map, pipe, split, slice, reduce } = require('../helpers.js')
+const { add, find, head, map, max, pipe, reduce, sortAscending, split, slice } = require('../helpers.js')
 const input = require('./input.js')
-
-const max = arr => Math.max(...arr)
 
 // implementation helpers
 const toSelectorArray = (index, length) => pipe(slice(index, length), split(''))
+
 const lowerHalf = ([lower, upper]) => [lower, upper - Math.floor((upper - lower) / 2)]
 const upperHalf = ([lower, upper]) => [lower + Math.ceil((upper - lower) / 2), upper]
 const partition = (range, selector) => selector === 'F' || selector === 'L' ? lowerHalf(range) : upperHalf(range)
+
+const nextIdIsMissing = (x, _, arr) => !arr.includes(x + 1) // meh
 
 // business logic
 const ROW_RANGE = [0, 127]
@@ -18,9 +19,9 @@ const getColumnId = pipe(toSelectorArray(-3), reduce(partition)(COLUMN_RANGE), h
 
 const getSeatId = (pass) => getRowId(pass) * 8 + getColumnId(pass)
 
-const solvePart1 = pipe(split('\n'), map(getSeatId), max)
-// TODO
-const solvePart2 = () => {}
+// wiring
+const solvePart1 = pipe(map(getSeatId), max)
+const solvePart2 = pipe(map(getSeatId), sortAscending, find(nextIdIsMissing), add(1))
 
 console.log('solution for part 1:', solvePart1(input))
 console.log('solution for part 2:', solvePart2(input))
