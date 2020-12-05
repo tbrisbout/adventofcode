@@ -1,23 +1,11 @@
-const { add, find, head, map, max, pipe, reduce, sortAscending, split, slice } = require('../helpers.js')
+const { add, find, map, max, pipe, replace, sortAscending } = require('../helpers.js')
 const input = require('./input.js')
 
 // implementation helpers
-const toSelectorArray = (index, length) => pipe(slice(index, length), split(''))
-
-const lowerHalf = ([lower, upper]) => [lower, upper - Math.floor((upper - lower) / 2)]
-const upperHalf = ([lower, upper]) => [lower + Math.ceil((upper - lower) / 2), upper]
-const partition = (range, selector) => selector === 'F' || selector === 'L' ? lowerHalf(range) : upperHalf(range)
-
 const nextIdIsMissing = (x, _, arr) => !arr.includes(x + 1) // meh
 
-// business logic
-const ROW_RANGE = [0, 127]
-const COLUMN_RANGE = [0, 7]
-
-const getRowId = pipe(toSelectorArray(0, 7), reduce(partition)(ROW_RANGE), head)
-const getColumnId = pipe(toSelectorArray(-3), reduce(partition)(COLUMN_RANGE), head)
-
-const getSeatId = (pass) => getRowId(pass) * 8 + getColumnId(pass)
+// It is actually a binary representation
+const getSeatId = pipe(replace(/F|L/g, 0), replace(/B|R/g, 1), binary => parseInt(binary, 2))
 
 // wiring
 const solvePart1 = pipe(map(getSeatId), max)
