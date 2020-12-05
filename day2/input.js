@@ -1001,30 +1001,4 @@ const input = [
   '6-7 g: gghggcggg'
 ]
 
-// generic helpers
-const equals = a => b => a === b
-const filter = predicate => (arr = []) => arr.filter(predicate)
-const isBetween = (lower, upper) => test => test >= lower && test <= upper
-const len = (arr = []) => arr.length
-const matches = regexp => test => regexp.exec(test)
-const pipe = (...fns) => x => fns.reduce((g, f) => f(g), x)
-const split = separator => (subject = '') => subject.split(separator)
-const tail = ([, ...rest]) => rest
-const xor = (a, b) => (a || b) && !(a && b)
-
-// implementation helpers
-const parseEntry = pipe(matches(/(\d+)-(\d+) (\w): (\w+)/), tail)
-const countOccurences = letter => pipe(split(''), filter(equals(letter)), len)
-
-// password policy strategies
-const hasCorrectNumberOfOccurences = ([lower, upper, letter, password]) => pipe(countOccurences(letter), isBetween(lower, upper))(password)
-const appearsOnlyOnOneBound = ([lower, upper, letter, password]) => xor(password[lower - 1] === letter, password[upper - 1] === letter)
-
-// wiring
-const policyCheck = strategy => pipe(filter(pipe(parseEntry, strategy)), len)
-
-const solvePart1 = policyCheck(hasCorrectNumberOfOccurences)
-const solvePart2 = policyCheck(appearsOnlyOnOneBound)
-
-console.log('solution for part 1:', solvePart1(input))
-console.log('solution for part 2:', solvePart2(input))
+module.exports = input

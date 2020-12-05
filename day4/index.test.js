@@ -1,5 +1,5 @@
 const test = require('ava')
-const { solvePart1, solvePart2 } = require('./day4.js')
+const { solvePart1, solvePart2 } = require('./index.js')
 
 test('Part 1: input should give 2 valid passports', t => {
   const input = `
