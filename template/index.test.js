@@ -1,7 +1,7 @@
 const test = require('ava')
 const { solvePart1, solvePart2 } = require('./index.js')
 
-test('Part 1: should ...', t => {
+test.skip('Part 1: should ...', t => {
   // GIVEN
   const input = ''
   const expected = ''
@@ -13,7 +13,7 @@ test('Part 1: should ...', t => {
   t.is(actual, expected)
 })
 
-test('Part 2: should ...', t => {
+test.skip('Part 2: should ...', t => {
   // GIVEN
   const input = ''
   const expected = ''
