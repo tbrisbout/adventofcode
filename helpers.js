@@ -5,6 +5,7 @@ const equals = a => b => a === b
 const find = predicate => (arr = []) => arr.find(predicate)
 const filter = predicate => (arr = []) => arr.filter(predicate)
 const head = ([h]) => h
+const includes = (test) => (arr = []) => arr.includes(test)
 const isBetween = (lower, upper) => test => test >= lower && test <= upper
 const join = (separator) => (arr = []) => arr.join(separator)
 const len = (arr = []) => arr.length
@@ -33,6 +34,7 @@ module.exports = {
   find,
   filter,
   head,
+  includes,
   isBetween,
   join,
   len,

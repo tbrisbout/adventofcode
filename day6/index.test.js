@@ -1,9 +1,7 @@
 const test = require('ava')
 const { solvePart1, solvePart2 } = require('./index.js')
 
-test('Part 1: It should return the sum of all summed answers', t => {
-  // GIVEN
-  const input =
+const sample =
 `abc
 
 a
@@ -18,8 +16,11 @@ a
 a
 a
 
-b
-`
+b`
+
+test('Part 1: It should return the sum of all summed answers', t => {
+  // GIVEN
+  const input = sample
   const expected = 11
 
   // WHEN
@@ -29,10 +30,10 @@ b
   t.is(actual, expected)
 })
 
-test.skip('Part 2: should ...', t => {
+test('Part 2: It should return the sum of all agreed answers', t => {
   // GIVEN
-  const input = ''
-  const expected = ''
+  const input = sample
+  const expected = 6
 
   // WHEN
   const actual = solvePart2(input)
