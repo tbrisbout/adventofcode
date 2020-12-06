@@ -1,12 +1,11 @@
-const { head, filter, includes, pipe, map, len, split, join, replace, reduce, sum, uniq } = require('../helpers.js')
+const { head, filter, includes, pipe, map, len, split, replace, reduce, sum, uniq } = require('../helpers.js')
 const input = require('./input.js')
 
 // implementation helpers
-const uniqStr = pipe(split(''), uniq, join(''))
 const isInAll = answers => answer => answers.every(includes(answer))
 
 // business logic
-const countAllAnswers = pipe(replace(/\n/g, ''), uniqStr, len)
+const countAllAnswers = pipe(replace(/\n/g, ''), uniq, len)
 
 const getAgreedAnswers = answers => pipe(head, filter(isInAll(answers)))(answers)
 
