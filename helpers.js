@@ -6,6 +6,7 @@ const find = predicate => (arr = []) => arr.find(predicate)
 const filter = predicate => (arr = []) => arr.filter(predicate)
 const head = ([h]) => h
 const isBetween = (lower, upper) => test => test >= lower && test <= upper
+const join = (separator) => (arr = []) => arr.join(separator)
 const len = (arr = []) => arr.length
 const map = mapper => (arr = []) => arr.map(mapper)
 const matches = regexp => test => regexp.exec(test)
@@ -20,6 +21,7 @@ const sum = (a, b) => a + b
 const substract = (a, b) => a - b
 const product = (a, b) => a * b
 const tail = ([, ...rest]) => rest
+const uniq = arr => [...new Set(arr)]
 const xor = (a, b) => (a || b) && !(a && b)
 const sortAscending = (arr = []) => arr.sort(substract)
 
@@ -32,6 +34,7 @@ module.exports = {
   filter,
   head,
   isBetween,
+  join,
   len,
   map,
   matches,
@@ -46,5 +49,6 @@ module.exports = {
   split,
   sum,
   tail,
+  uniq,
   xor
 }
