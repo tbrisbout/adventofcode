@@ -1,4 +1,4 @@
-const { equals, filter, len, map, pipe, reduce, sum, tail } = require('../helpers.js')
+const { equals, filter, len, map, pipe, reduce, product, tail } = require('../helpers.js')
 const input = require('./input.js')
 
 // implementation helpers
@@ -14,7 +14,7 @@ const traverse = ([hOffset, vOffset]) => pipe(
   filter(isTree),
   len
 )
-const traverseAll = slopes => grid => pipe(map(slope => traverse(slope)(grid)), reduce(sum)(1))(slopes)
+const traverseAll = slopes => grid => pipe(map(slope => traverse(slope)(grid)), reduce(product)(1))(slopes)
 
 const solvePart1 = traverse([3, 1])
 const solvePart2 = traverseAll([[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]])

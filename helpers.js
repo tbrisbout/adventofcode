@@ -16,8 +16,9 @@ const reduce = reducer => initial => (arr = []) => arr.reduce(reducer, initial)
 const replace = (from, to) => (subject = '') => subject.replace(from, to)
 const slice = (index, length) => (subject = '') => subject.slice(index, length)
 const split = separator => (subject = '') => subject.split(separator)
-const sum = (a, b) => a * b
+const sum = (a, b) => a + b
 const substract = (a, b) => a - b
+const product = (a, b) => a * b
 const tail = ([, ...rest]) => rest
 const xor = (a, b) => (a || b) && !(a && b)
 const sortAscending = (arr = []) => arr.sort(substract)
@@ -37,6 +38,7 @@ module.exports = {
   max,
   not,
   pipe,
+  product,
   reduce,
   replace,
   slice,
