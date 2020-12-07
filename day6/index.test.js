@@ -1,8 +1,7 @@
 const test = require('ava')
 const { solvePart1, solvePart2 } = require('./index.js')
 
-const sample =
-`abc
+const sample = `abc
 
 a
 b

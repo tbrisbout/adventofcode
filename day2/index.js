@@ -1,4 +1,14 @@
-const { equals, filter, isBetween, len, matches, pipe, split, tail, xor } = require('../helpers.js')
+const {
+  equals,
+  filter,
+  isBetween,
+  len,
+  matches,
+  pipe,
+  split,
+  tail,
+  xor
+} = require('../helpers.js')
 const input = require('./input.js')
 
 // implementation helpers
@@ -6,8 +16,11 @@ const parseEntry = pipe(matches(/(\d+)-(\d+) (\w): (\w+)/), tail)
 const countOccurences = letter => pipe(split(''), filter(equals(letter)), len)
 
 // password policy strategies
-const hasCorrectNumberOfOccurences = ([lower, upper, letter, password]) => pipe(countOccurences(letter), isBetween(lower, upper))(password)
-const appearsOnlyOnOneBound = ([lower, upper, letter, password]) => xor(password[lower - 1] === letter, password[upper - 1] === letter)
+const hasCorrectNumberOfOccurences = ([lower, upper, letter, password]) =>
+  pipe(countOccurences(letter), isBetween(lower, upper))(password)
+
+const appearsOnlyOnOneBound = ([lower, upper, letter, password]) =>
+  xor(password[lower - 1] === letter, password[upper - 1] === letter)
 
 // wiring
 const policyCheck = strategy => pipe(filter(pipe(parseEntry, strategy)), len)

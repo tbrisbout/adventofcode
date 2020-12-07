@@ -2,7 +2,9 @@ const input = require('./input.js')
 
 // not optimized
 const solvePart1 = (numbers = []) =>
-  numbers.filter(i => input.find(j => i + j === 2020)).reduce((i, j) => i * j, 1)
+  numbers
+    .filter(i => input.find(j => i + j === 2020))
+    .reduce((i, j) => i * j, 1)
 
 // I hadn't write one in JS for ~5 years, and here's three of them!
 const solvePart2 = (numbers = []) => {

@@ -1,5 +1,4 @@
-const input = 
-`FBBFBFBLRR
+const input = `FBBFBFBLRR
 FBFFFFFLLR
 FBBBBBBLLR
 FFBFBBBRLL

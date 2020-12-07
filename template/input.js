@@ -1,5 +1,5 @@
 const input = [
-// TODO
+  // TODO
 ]
 
 module.exports = input

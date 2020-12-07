@@ -1,5 +1,4 @@
-const input =
-`f
+const input = `f
 v
 ki
 

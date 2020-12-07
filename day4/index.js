@@ -1,13 +1,35 @@
-const { anyOf, at, equals, filter, isBetween, len, map, matches, not, pipe, split } = require('../helpers.js')
+const {
+  anyOf,
+  at,
+  equals,
+  filter,
+  isBetween,
+  len,
+  map,
+  matches,
+  not,
+  pipe,
+  split
+} = require('../helpers.js')
 const input = require('./input.js')
 
 // implementation helpers
-const toObjectWithFields = pipe(split(/\s/), map(split(':')), Object.fromEntries)
+const toObjectWithFields = pipe(
+  split(/\s/),
+  map(split(':')),
+  Object.fromEntries
+)
 const parseInput = pipe(split('\n\n'), map(toObjectWithFields))
-const sizeWithUnit = unit => pipe(matches(new RegExp(`(\\d+)${unit}`)), at(1), Number)
+const sizeWithUnit = unit =>
+  pipe(matches(new RegExp(`(\\d+)${unit}`)), at(1), Number)
 
 // business logic
-const hasAllFieldsExceptCid = pipe(Object.keys, filter(not(equals('cid'))), len, equals(7))
+const hasAllFieldsExceptCid = pipe(
+  Object.keys,
+  filter(not(equals('cid'))),
+  len,
+  equals(7)
+)
 
 const RULES_BY_FIELD = {
   byr: pipe(Number, isBetween(1920, 2002)),
@@ -24,7 +46,9 @@ const RULES_BY_FIELD = {
 }
 
 const checkRulesForAllFields = passport =>
-  Object.entries(RULES_BY_FIELD).every(([key, predicate]) => passport[key] && predicate(passport[key]))
+  Object.entries(RULES_BY_FIELD).every(
+    ([key, predicate]) => passport[key] && predicate(passport[key])
+  )
 
 // wiring
 const passportCheck = strategy => pipe(parseInput, filter(strategy), len)
