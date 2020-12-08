@@ -9,11 +9,11 @@ jmp -3
 acc -99
 acc +1
 jmp -4
-acc +6`
+acc +6`.split('\n')
 
 test('Part 1: it should print the accumulator value before any second execution', t => {
   // GIVEN
-  const input = sample.split('\n')
+  const input = sample
   const expected = 5
 
   // WHEN

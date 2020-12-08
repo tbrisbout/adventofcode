@@ -4,6 +4,7 @@ const input = require('./input.js')
 // implementation helpers
 const increment = offset => over('accumulator', add(offset))
 const register = state => over('visited', append(state.line))(state)
+const isLooping = ({ visited, line }) => visited.includes(line)
 
 // program logic
 const jmp = (offset = 1) => over('line', add(offset))
@@ -12,17 +13,12 @@ const nop = () => jmp() // explicitly discard argument
 
 const OPS = { acc, nop, jmp }
 
-const run = state => program => {
-  const { line, visited, accumulator } = state
-  if (visited.includes(line)) {
-    return accumulator
-  }
+const exec = ([op, arg]) => pipe(register, OPS[op](Number(arg)))
 
-  const [op, arg] = program[line]
-  const nextState = pipe(register, OPS[op](Number(arg)))(state)
-
-  return run(nextState)(program)
-}
+const run = state => program =>
+  isLooping(state)
+    ? state.accumulator
+    : run(exec(program[state.line])(state))(program)
 
 const INITIAL_STATE = {
   accumulator: 0,
@@ -30,7 +26,8 @@ const INITIAL_STATE = {
   visited: []
 }
 
-const solvePart1 = pipe(map(split(' ')), run(INITIAL_STATE))
+const parse = map(split(' '))
+const solvePart1 = pipe(parse, run(INITIAL_STATE))
 
 // TODO
 const solvePart2 = () => {}
