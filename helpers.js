@@ -1,6 +1,7 @@
 const add = a => b => a + b
 const allOf = (...fns) => x => fns.reduce((test, f) => test && f(x), true)
 const anyOf = (...fns) => x => fns.reduce((test, f) => test || f(x), false)
+const append = x => (arr = []) => [...arr, x]
 const at = i => x => x && x[i]
 const defaultTo = a => b => b || a
 const equals = a => b => a === b
@@ -14,6 +15,7 @@ const map = mapper => (arr = []) => arr.map(mapper)
 const matches = regexp => test => regexp.exec(test)
 const max = arr => Math.max(...arr)
 const not = f => x => !f(x)
+const over = (field, f) => obj => ({ ...obj, [field]: f(obj[field]) })
 const pipe = (...fns) => x => fns.reduce((g, f) => f(g), x)
 const reduce = reducer => initial => (arr = []) => arr.reduce(reducer, initial)
 const replace = (from, to) => (subject = '') => subject.replace(from, to)
@@ -34,6 +36,7 @@ module.exports = {
   add,
   allOf,
   anyOf,
+  append,
   at,
   capture,
   captureAll,
@@ -49,6 +52,7 @@ module.exports = {
   matches,
   max,
   not,
+  over,
   pipe,
   product,
   reduce,
