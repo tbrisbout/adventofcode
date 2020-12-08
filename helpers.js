@@ -2,6 +2,7 @@ const add = a => b => a + b
 const allOf = (...fns) => x => fns.reduce((test, f) => test && f(x), true)
 const anyOf = (...fns) => x => fns.reduce((test, f) => test || f(x), false)
 const at = i => x => x && x[i]
+const defaultTo = a => b => b || a
 const equals = a => b => a === b
 const find = predicate => (arr = []) => arr.find(predicate)
 const filter = predicate => (arr = []) => arr.filter(predicate)
@@ -27,6 +28,7 @@ const uniq = arr => [...new Set(arr)]
 const xor = (a, b) => (a || b) && !(a && b)
 const sortAscending = (arr = []) => arr.sort(substract)
 const capture = regexp => pipe(matches(regexp), at(1))
+const captureAll = regexp => pipe(matches(regexp), defaultTo([]), tail)
 
 module.exports = {
   add,
@@ -34,6 +36,8 @@ module.exports = {
   anyOf,
   at,
   capture,
+  captureAll,
+  defaultTo,
   equals,
   find,
   filter,
