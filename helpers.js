@@ -7,6 +7,8 @@ const defaultTo = a => b => b || a
 const equals = a => b => a === b
 const find = predicate => (arr = []) => arr.find(predicate)
 const filter = predicate => (arr = []) => arr.filter(predicate)
+const flatMap = mapper => pipe(map(mapper), flatten)
+const flatten = (arr = []) => arr.flat()
 const head = ([h]) => h
 const includes = test => (arr = []) => arr.includes(test)
 const isBetween = (lower, upper) => test => test >= lower && test <= upper
@@ -44,6 +46,8 @@ module.exports = {
   equals,
   find,
   filter,
+  flatMap,
+  flatten,
   head,
   includes,
   isBetween,

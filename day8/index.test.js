@@ -23,10 +23,10 @@ test('Part 1: it should print the accumulator value before any second execution'
   t.is(actual, expected)
 })
 
-test.skip('Part 2: should ...', t => {
+test('Part 2: it should replace a nop with a jmp (or vice-versa) to avoid looping and return the accumulator', t => {
   // GIVEN
-  const input = ''
-  const expected = ''
+  const input = sample
+  const expected = 8
 
   // WHEN
   const actual = solvePart2(input)
