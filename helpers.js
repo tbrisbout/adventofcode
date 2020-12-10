@@ -16,6 +16,7 @@ const len = (arr = []) => arr.length
 const map = mapper => (arr = []) => arr.map(mapper)
 const matches = regexp => test => regexp.exec(test)
 const max = arr => Math.max(...arr)
+const min = arr => Math.min(...arr)
 const not = f => x => !f(x)
 const over = (field, f) => obj => ({ ...obj, [field]: f(obj[field]) })
 const pipe = (...fns) => x => fns.reduce((g, f) => f(g), x)
@@ -55,6 +56,7 @@ module.exports = {
   map,
   matches,
   max,
+  min,
   not,
   over,
   pipe,

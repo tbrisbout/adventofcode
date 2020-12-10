@@ -36,13 +36,15 @@ test('Part 1: it should find the first number which is not a sum of two of the p
   t.is(actual, expected)
 })
 
-test.skip('Part 2: should ...', t => {
+test('Part 2: it should sum the two bounds of the contiguous set that sum to the invalid number', t => {
   // GIVEN
-  const input = ''
-  const expected = ''
+  const input = sample
+  const preamble = 5
+
+  const expected = 62
 
   // WHEN
-  const actual = solvePart2(input)
+  const actual = solvePart2(preamble)(input)
 
   // THEN
   t.is(actual, expected)
