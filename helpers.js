@@ -6,6 +6,7 @@ const at = i => x => x && x[i]
 const defaultTo = a => b => b || a
 const equals = a => b => a === b
 const find = predicate => (arr = []) => arr.find(predicate)
+const findIndex = predicate => (arr = []) => arr.findIndex(predicate)
 const filter = predicate => (arr = []) => arr.filter(predicate)
 const flatMap = mapper => pipe(map(mapper), flatten)
 const flatten = (arr = []) => arr.flat()
@@ -35,6 +36,21 @@ const sortAscending = (arr = []) => arr.sort(substract)
 const capture = regexp => pipe(matches(regexp), at(1))
 const captureAll = regexp => pipe(matches(regexp), defaultTo([]), tail)
 
+const sliceTo = i => slice(0, i)
+const sliceAfter = pipe(add(1), sliceTo)
+const sliceToItem = item => arr => sliceTo(arr.findIndex(equals(item)))(arr)
+
+const Tuple = {
+  of: x => [x, x],
+  mapR: f => ([x, y]) => [f(x), y],
+  mapL: f => ([x, y]) => [x, f(y)],
+  mapRWithL: f => ([x, y]) => [f(y)(x), y], // not fan of the name
+  mapLWithR: f => ([x, y]) => [x, f(x)(y)],
+  map: (f, g = f) => ([x, y]) => [f(x), g(y)],
+  R: ([x]) => x,
+  L: ([, y]) => y
+}
+
 module.exports = {
   add,
   allOf,
@@ -46,6 +62,7 @@ module.exports = {
   defaultTo,
   equals,
   find,
+  findIndex,
   filter,
   flatMap,
   flatten,
@@ -64,11 +81,15 @@ module.exports = {
   reduce,
   replace,
   slice,
+  sliceAfter,
+  sliceTo,
+  sliceToItem,
   some,
   sortAscending,
   split,
   sum,
   tail,
   uniq,
-  xor
+  xor,
+  Tuple
 }

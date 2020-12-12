@@ -1,6 +1,7 @@
 const {
   equals,
   find,
+  findIndex,
   map,
   max,
   min,
@@ -8,54 +9,50 @@ const {
   pipe,
   reduce,
   slice,
-  sum
+  sliceAfter,
+  sliceToItem,
+  sum,
+  Tuple
 } = require('../helpers.js')
 const input = require('./input.js')
 
 const isValid = number =>
   find((x, _, numbers) => numbers.find(y => x !== y && x + y === number))
 
-const solvePart1 = preamble =>
-  pipe(
-    map(Number),
-    find(
-      (number, i, numbers) =>
-        i >= preamble &&
-        pipe(slice(i - preamble, i), not(isValid(number)))(numbers)
-    )
+const findInvalid = preamble =>
+  find(
+    (number, i, numbers) =>
+      i >= preamble &&
+      pipe(slice(i - preamble, i), not(isValid(number)))(numbers)
   )
 
-const sumEquals = invalid => j =>
-  pipe(slice(0, j + 1), reduce(sum)(0), equals(invalid))
+const sumEquals = invalid => (_, index, arr) =>
+  pipe(sliceAfter(index), reduce(sum)(0), equals(invalid))(arr)
 
-const findWeakness = ([arr, invalid]) =>
-  arr.reduce((acc, _, lower) => {
-    if (acc) return acc
+const sumMinAndMax = pipe(Tuple.of, Tuple.map(min, max), reduce(sum)(0))
 
-    const lowerSubset = arr.slice(lower)
+const findWeakness = invalid =>
+  reduce(
+    (acc, _, lower, arr) =>
+      acc ||
+      pipe(
+        slice(lower),
+        Tuple.of,
+        Tuple.mapR(findIndex(sumEquals(invalid))),
+        ([i, subset]) => i > 0 && pipe(sliceAfter(i), sumMinAndMax)(subset)
+      )(arr)
+  )()
 
-    const upper = lowerSubset.findIndex((x, j) =>
-      sumEquals(invalid)(j)(lowerSubset)
-    )
-
-    if (upper > 0) {
-      const subset = lowerSubset.slice(0, upper + 1)
-
-      return min(subset) + max(subset)
-    }
-
-    return null
-  }, null)
+const solvePart1 = preamble => pipe(map(Number), findInvalid(preamble))
 
 const solvePart2 = preamble =>
   pipe(
     map(Number),
-    arr => [arr, solvePart1(preamble)(arr)],
-    ([arr, invalid]) => [
-      slice(0, arr.findIndex(equals(invalid)))(arr),
-      invalid
-    ],
-    findWeakness
+    Tuple.of,
+    Tuple.mapL(findInvalid(preamble)),
+    Tuple.mapRWithL(sliceToItem),
+    Tuple.mapRWithL(findWeakness),
+    Tuple.R
   )
 
 const PREAMBLE = 25
